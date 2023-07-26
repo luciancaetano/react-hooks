@@ -1,0 +1,51 @@
+name: Deploy Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_as:
+        description: 'Release as'
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: ["16.x"]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        registry-url: 'https://registry.npmjs.org'
+    - run: npm ci --legacy-peer-deps
+    - run: npm run test
+    - run: npm run lint
+    - run: npm run build
+    - run: git config --global user.email ${{ secrets.GH_EMAIL }}
+    - run: git config --global user.name ${{ secrets.GH_USERNAME }}
+    - run: npx standard-version --release-as ${{ github.event.inputs.release_as }}
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GH_TOKEN }}
+        branch: ${{ github.ref }}
+        tags: true
+    - run: npm publish --access public
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+    - uses: actions/upload-artifact@v3
+      with:
+        name: code-coverage
+        path: coverage

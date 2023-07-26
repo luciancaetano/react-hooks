@@ -1,0 +1,153 @@
+{
+  "name": "@lcaetano/react-hooks",
+  "version": "1.0.0",
+  "source": "src/index.ts",
+  "main": "dist/index.min.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "description": "Usefull React Hooks",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --mode production --progress && npm run check:licenses && npm run types",
+    "watch:webpack": "webpack --watch --progress --mode development",
+    "watch:types": "tsc src/index.ts --declaration --allowJs --emitDeclarationOnly --outDir dist/types --esModuleInterop --jsx react --resolveJsonModule --skipLibCheck --watch",
+    "watch": "run-p watch:webpack watch:types --print-label --race",
+    "start:dev": "run-p start:dev:source start:dev:types --print-label --race",
+    "start:dev:source": "webpack --watch --progress --mode development",
+    "start:dev:types": "tsc src/index.ts --declaration --allowJs --emitDeclarationOnly --outDir dist/types --esModuleInterop --jsx react --resolveJsonModule --skipLibCheck --watch",
+    "test": "tsc --noEmit && jest --coverage --silent",
+    "check:licenses": "license-checker --production --csv --out dist/licenses.csv",
+    "test:dev": "jest --watchAll --coverage",
+    "types": "tsc src/index.ts --declaration --allowJs --emitDeclarationOnly --outDir dist/types --esModuleInterop --jsx react --skipLibCheck",
+    "lint": "eslint ./src --ext .tsx --ext .ts --max-warnings=0 --fix",
+    "release:minor": "standard-version --release-as minor && npm run build && git push --follow-tags origin main && npm publish",
+    "release:major": "standard-version --release-as major && npm run build && git push --follow-tags origin main && npm publish",
+    "release:patch": "standard-version --release-as patch && npm run build && git push --follow-tags origin main && npm publish",
+    "release:pre": "standard-version --prerelease && npm run build && git push --follow-tags origin main && npm publish --tag next",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luciancaetano/react-hooks.git"
+  },
+  "keywords": [
+    "React",
+    "Component",
+    "Library",
+    "Typescript",
+    "Hooks"
+  ],
+  "author": "Lucian Caetano",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luciancaetano/react-hooks/issues"
+  },
+  "homepage": "https://github.com/luciancaetano/react-hooks#readme",
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
+  },
+  "devDependencies": {
+    "@mdx-js/react": "^2.3.0",
+    "@namics/stylelint-bem": "^8.1.0",
+    "@storybook/addon-actions": "^7.1.0",
+    "@storybook/addon-docs": "^7.1.0",
+    "@storybook/addon-essentials": "^7.1.0",
+    "@storybook/addon-links": "^7.1.0",
+    "@storybook/addon-mdx-gfm": "^7.1.0",
+    "@storybook/cli": "^7.1.0",
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/react": "^7.1.0",
+    "@storybook/react-webpack5": "^7.1.0",
+    "@storybook/storybook-deployer": "^2.8.16",
+    "@storybook/theming": "^7.1.0",
+    "@swc/core": "^1.3.70",
+    "@swc/helpers": "^0.5.1",
+    "@swc/jest": "^0.2.27",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/jest": "^29.5.3",
+    "@types/lodash": "^4.14.195",
+    "@types/markdown-it": "^12.2.3",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@types/react-input-mask": "^3.0.2",
+    "@types/react-select": "^5.0.0",
+    "@types/testing-library__jest-dom": "^5.14.8",
+    "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "@typescript-eslint/parser": "^6.1.0",
+    "anysort": "^2.0.0",
+    "autoprefixer": "^10.4.14",
+    "caniuse-lite": "^1.0.30001517",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.8.1",
+    "css-minimizer-webpack-plugin": "^5.0.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.45.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "file-loader": "^6.2.0",
+    "husky": "^8.0.3",
+    "hygen": "^6.2.11",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.6.1",
+    "jest-environment-jsdom": "^29.6.1",
+    "jest-useragent-mock": "^0.1.1",
+    "license-checker": "^25.0.1",
+    "lint-staged": "^13.2.3",
+    "mini-css-extract-plugin": "^2.7.6",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.26",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-sass": "^0.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^5.0.1",
+    "sass": "^1.64.0",
+    "sass-loader": "^13.3.2",
+    "standard-version": "^9.5.0",
+    "storybook-addon-swc": "^1.2.0",
+    "style-loader": "^3.3.3",
+    "stylelint": "^15.10.2",
+    "stylelint-config-standard-scss": "^10.0.0",
+    "stylelint-order": "^6.0.3",
+    "stylelint-scss": "^5.0.1",
+    "swc-loader": "^0.2.3",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.ts?(x)": [
+      "eslint",
+      "jest --bail --findRelatedTests",
+      "git add"
+    ],
+    "src/**/*.scss": [
+      "stylelint"
+    ]
+  },
+  "gacp": {
+    "push": true,
+    "emoji": "code"
+  },
+  "dependencies": {
+    "clsx": "^2.0.0",
+    "lodash": "^4.17.21",
+    "regenerator-runtime": "^0.13.11",
+    "use-debounce": "^9.0.4"
+  }
+}
